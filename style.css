@@ -1,0 +1,111 @@
+:root {
+  --primary: #4e6e5d;
+  --primary-light: #e8f0eb;
+  --primary-dark: #375043;
+  --accent: #d97706;
+  --bg-color: #f5f7f5;
+  --card-bg: #ffffff;
+  --text-dark: #2c3e50;
+  --text-muted: #6c757d;
+  --border-color: #e0e6e1;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  background: #fafbfa;
+  min-height: 100vh;
+  padding: 16px;
+  padding-bottom: 90px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+/* Header */
+.app-header { text-align: center; margin-bottom: 20px; }
+.app-title { color: var(--primary); font-size: 1.8rem; font-weight: 700; }
+.section-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
+
+/* Input card */
+.input-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.input-group { display: flex; gap: 8px; margin-bottom: 10px; }
+.ingredient-input { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 10px; }
+.btn-add { background: var(--primary); color: white; border: none; padding: 0 16px; border-radius: 10px; cursor: pointer; }
+.tags-container { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { background: var(--primary-light); color: var(--primary-dark); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; display: flex; gap: 6px; }
+.tag-remove { border: none; background: none; color: var(--primary-dark); cursor: pointer; font-weight: bold; }
+
+/* Mode de cuisson */
+.cooking-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+.cooking-btn { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.cooking-btn.active { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); font-weight: 600; }
+.cooking-icon { font-size: 1.4rem; }
+.cooking-label { font-size: 0.75rem; }
+
+/* Bouton Action Central */
+.action-container { display: flex; justify-content: center; margin-bottom: 24px; }
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+.btn-submit:active { transform: scale(0.98); }
+
+/* Recettes */
+.recipes-list { display: flex; flex-direction: column; gap: 12px; }
+.recipe-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: var(--shadow); }
+.recipe-image { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+.recipe-info { flex: 1; }
+.recipe-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+.recipe-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; display: flex; gap: 10px; }
+
+/* Navigation du bas */
+.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: var(--card-bg); border-top: 1px solid var(--border-color); padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.nav-btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+.nav-btn-secondary { background: var(--primary-dark); }
+
+/* Modal Pop-up Flou */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; padding: 20px; z-index: 1000; }
+.modal-overlay.hidden { display: none; }
+.modal-content { background: var(--card-bg); border-radius: 20px; width: 100%; max-width: 420px; max-height: 85vh; overflow-y: auto; padding: 20px; position: relative; }
+.close-btn { position: absolute; top: 14px; right: 14px; background: #f0f0f0; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+.modal-title { color: var(--primary); font-size: 1.3rem; margin-bottom: 4px; }
+.modal-section { margin-bottom: 18px; }
+.modal-section-title { font-size: 1rem; color: var(--primary-dark); margin-bottom: 8px; font-weight: 700; }
+.ingredient-list, .step-list { list-style: none; }
+.ingredient-item { padding: 6px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.9rem; }
+.step-item { margin-bottom: 10px; font-size: 0.9rem; display: flex; gap: 10px; }
+.step-number { background: var(--primary-light); color: var(--primary-dark); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem; flex-shrink: 0; }
+  
