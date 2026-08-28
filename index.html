@@ -23,9 +23,8 @@
       </header>
 
 
-      <div class="main-content">
-        
-                <!-- Cadre Ingrédients (Agrandi) -->
+            <div class="main-content">
+        <!-- Cadre Ingrédients -->
         <div class="input-card">
           <h2 class="section-title ingredients-title">Mes Ingrédients</h2>
           <div class="input-group">
@@ -35,7 +34,7 @@
           <div id="tagsContainer" class="tags-container"></div>
         </div>
 
-        <!-- Mode de Cuisson (Boutons Agrandis + Bons SVG) -->
+        <!-- Mode de Cuisson -->
         <div class="cooking-section">
           <h2 class="section-title">Mode de Cuisson</h2>
           <div class="cooking-grid">
@@ -43,26 +42,24 @@
             <!-- Poêle / Four -->
             <button class="cooking-btn active" data-mode="simple" type="button">
               <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12.5 12 18l-9-5.5"/>
-                <path d="M12 4v8"/>
-                <path d="M3 12.5V17l9 5 9-5v-4.5"/>
-                <circle cx="12" cy="7" r="3"/>
+                <path d="M3 13a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6V9H3v4z"/>
+                <path d="M19 11h4"/>
               </svg>
               <span class="cooking-label">Poêle/Four</span>
             </button>
 
-            <!-- Cookeo (Multicuiseur / Cocotte) -->
+            <!-- Cookeo -->
             <button class="cooking-btn" data-mode="cookeo" type="button">
               <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="8" width="18" height="12" rx="3"/>
-                <path d="M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
-                <line x1="8" y1="12" x2="16" y2="12"/>
-                <circle cx="12" cy="16" r="1"/>
+                <path d="M4 10a8 8 0 0 1 16 0v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7z"/>
+                <path d="M2 12h2M20 12h2"/>
+                <path d="M8 5h8"/>
+                <circle cx="12" cy="14" r="2"/>
               </svg>
               <span class="cooking-label">Cookeo</span>
             </button>
 
-            <!-- Air Fryer (Friteuse sans huile) -->
+            <!-- Air Fryer -->
             <button class="cooking-btn" data-mode="airfryer" type="button">
               <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="4" y="3" width="16" height="18" rx="3"/>
@@ -73,7 +70,7 @@
               <span class="cooking-label">Air Fryer</span>
             </button>
 
-            <!-- Sans Cuisson (Feuille / Frais) -->
+            <!-- Sans Cuisson -->
             <button class="cooking-btn" data-mode="raw" type="button">
               <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7 0 6-5 11-10 11z"/>
@@ -85,14 +82,12 @@
           </div>
         </div>
 
-
-
         <!-- Bouton de Recherche -->
         <div class="action-container">
           <button id="searchBtn" class="btn-submit" type="button">C'est Parti !</button>
         </div>
-      </div>
-    </div>
+            </div>
+      
 
     <!-- Écran des Résultats -->
     <div id="resultsScreen" class="screen">
