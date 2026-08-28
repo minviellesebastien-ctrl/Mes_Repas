@@ -98,18 +98,20 @@ body {
 /* Card Ingrédients */
 .input-card {
   background: var(--card-bg);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow-card);
-  height: 140px;
+  height: 165px; /* Passé de 130px à 165px */
   display: flex;
   flex-direction: column;
 }
+
 .ingredients-title {
   font-size: 0.95rem;
   font-weight: 800;
 }
+
 .input-group { 
   display: flex; 
   gap: 8px; 
@@ -125,6 +127,7 @@ body {
   font-size: 0.9rem;
   background: #fafafa;
 }
+
 .btn-add {
   background: var(--primary-green);
   color: white;
@@ -144,6 +147,7 @@ body {
   align-content: flex-start;
   padding-right: 4px;
 }
+
 .tag {
   background: var(--yellow-light);
   color: #a07810;
@@ -169,14 +173,17 @@ body {
 .cooking-btn {
   background: var(--card-bg);
   border: 1.5px solid var(--primary-border);
-  border-radius: 12px;
-  padding: 10px 2px;
+  border-radius: 14px;
+  padding: 16px 4px; /* Plus d'espace haut/bas */
+  min-height: 85px; /* Hauteur renforcée */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
 .cooking-btn.active {
   background: var(--yellow-soft);
   border-color: #d6af43;
@@ -184,7 +191,12 @@ body {
   font-weight: bold;
 }
 .cooking-btn.active .cooking-icon-svg { stroke: var(--primary-dark); }
-.cooking-icon-svg { width: 22px; height: 22px; stroke: var(--primary-dark); margin-bottom: 4px; }
+.cooking-icon-svg { 
+  width: 28px; 
+  height: 28px; 
+  stroke: var(--primary-dark); 
+  margin-bottom: 6px; 
+}
 .cooking-label { font-size: 0.7rem; }
 
 /* Bouton principal */
