@@ -641,12 +641,26 @@ async function generateRecipes() {
 
       } catch (error) {
 
-        console.warn(
-          "Impossible de récupérer les détails de la recette :",
-          recipe.id
-        );
+    console.error("Erreur Spoonacular :", error);
 
-      }
+    recipesTitle.textContent = "Erreur Spoonacular";
+
+    recipesList.innerHTML = `
+      <div style="
+        padding: 15px;
+        font-size: 0.85rem;
+        color: #62826c;
+        line-height: 1.5;
+      ">
+        <strong>Impossible de récupérer les recettes.</strong>
+        <br><br>
+        ${escapeHTML(error.message)}
+        <br><br>
+        Vérifie ta clé API Spoonacular et ton quota.
+      </div>
+    `;
+
+  }
 
     }
 
