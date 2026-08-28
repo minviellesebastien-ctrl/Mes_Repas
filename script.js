@@ -2,7 +2,7 @@
 // CONFIGURATION SPOONACULAR
 // ============================================================
 
-const SPOONACULAR_API_KEY = "TA_CLE_ICI";
+const SPOONACULAR_API_KEY = "52cccdb1ed664d629040a66d50b5a520";
 
 let userIngredients = [];
 let selectedMode = "simple";
