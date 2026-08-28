@@ -34,11 +34,17 @@
           <div id="tagsContainer" class="tags-container"></div>
         </div>
 
-        <!-- Mode de Cuisson -->
+                <!-- Mode de Cuisson -->
         <div class="cooking-section">
           <h2 class="section-title">Mode de Cuisson</h2>
           <div class="cooking-grid">
-            <button class="cooking-btn active" data-mode="cookeo" type="button">
+            <button class="cooking-btn active" data-mode="simple" type="button">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <span class="cooking-label">Poêle/Four</span>
+            </button>
+            <button class="cooking-btn" data-mode="cookeo" type="button">
               <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
               </svg>
@@ -50,20 +56,15 @@
               </svg>
               <span class="cooking-label">Air Fryer</span>
             </button>
-            <button class="cooking-btn" data-mode="simple" type="button">
-              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-              </svg>
-              <span class="cooking-label">Poêle/Four</span>
-            </button>
             <button class="cooking-btn" data-mode="raw" type="button">
               <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               </svg>
-              <span class="cooking-label">Cru/Frais</span>
+              <span class="cooking-label">Sans cuisson</span>
             </button>
           </div>
         </div>
+
 
         <!-- Bouton de Recherche -->
         <div class="action-container">
