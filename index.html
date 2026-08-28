@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur de Recettes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Écran Principal -->
+    <div id="mainScreen" class="screen active-screen">
+      <header class="app-header">
+        <h1 class="app-title">
+          <svg class="chef-hat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 13.87A6 6 0 0 1 7.41 2a6 6 0 0 1 10.18 4 6 6 0 0 1 1 11.87H5.41Z"/>
+            <path d="M6 17h12"/>
+            <path d="M6 21h12"/>
+          </svg>
+          Chef Express
+        </h1>
+      </header>
+
+      <div class="main-content">
+        <!-- Cadre Ingrédients -->
+        <div class="input-card">
+          <h2 class="section-title ingredients-title">Mes Ingrédients</h2>
+          <div class="input-group">
+            <input type="text" id="ingredientInput" class="ingredient-input" placeholder="Ajouter un ingrédient...">
+            <button id="addBtn" class="btn-add" type="button">Ajouter</button>
+          </div>
+          <div id="tagsContainer" class="tags-container"></div>
+        </div>
+
+        <!-- Mode de Cuisson -->
+        <div class="cooking-section">
+          <h2 class="section-title">Mode de Cuisson</h2>
+          <div class="cooking-grid">
+            <button class="cooking-btn active" data-mode="cookeo" type="button">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+              <span class="cooking-label">Cookeo</span>
+            </button>
+            <button class="cooking-btn" data-mode="airfryer" type="button">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3v18M3 12h18M6.34 17.66l11.32-11.32M6.34 6.34l11.32 11.32"/>
+              </svg>
+              <span class="cooking-label">Air Fryer</span>
+            </button>
+            <button class="cooking-btn" data-mode="simple" type="button">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <span class="cooking-label">Poêle/Four</span>
+            </button>
+            <button class="cooking-btn" data-mode="raw" type="button">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <span class="cooking-label">Cru/Frais</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bouton de Recherche -->
+        <div class="action-container">
+          <button id="searchBtn" class="btn-submit" type="button">C'est Parti !</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Écran des Résultats -->
+    <div id="resultsScreen" class="screen">
+      <div class="results-header">
+        <button id="backBtn" class="btn-back" type="button">← Retour</button>
+        <h2 id="recipesTitle" class="section-title" style="margin: 0; font-size: 1.1rem;">Recettes</h2>
+      </div>
+      <div id="recipesList" class="recipes-list"></div>
+    </div>
+
+    <!-- Navigation du bas -->
+    <nav class="bottom-nav">
+      <button id="openSemaineBtn" class="nav-btn nav-btn-secondary" type="button">
+        Ma Semaine
+      </button>
+      <button id="openListeBtn" class="nav-btn" type="button">
+        Ma Liste
+      </button>
+    </nav>
+
+    <!-- Modale Recette -->
+    <div id="recipeModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button id="closeModalBtn" class="close-btn" type="button">×</button>
+        <h2 id="modalTitle" style="font-size: 1.1rem; color: var(--primary-dark); margin-bottom: 6px;"></h2>
+        <p id="modalMeta" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;"></p>
+        
+        <h3 style="font-size: 0.9rem; color: var(--primary-green); margin-bottom: 6px;">Ingrédients</h3>
+        <ul id="modalIngredients" style="list-style: none; padding: 0; margin-bottom: 14px;"></ul>
+        
+        <h3 style="font-size: 0.9rem; color: var(--primary-green); margin-bottom: 6px;">Préparation</h3>
+        <ol id="modalSteps" style="padding-left: 0; list-style: none;"></ol>
+      </div>
+    </div>
+
+    <!-- Modale Ma Semaine -->
+    <div id="semaineModal" class="modal-overlay hidden">
+      <div class="modal-bottom-sheet">
+        <h2 class="sheet-title">Planning de la Semaine</h2>
+        <div class="sheet-body">
+          <textarea class="sheet-textarea" placeholder="Notez ici votre menu pour la semaine..."></textarea>
+        </div>
+        <button id="closeSemaineBtn" class="btn-submit" style="margin-top: 10px;" type="button">Fermer</button>
+      </div>
+    </div>
+
+    <!-- Modale Ma Liste -->
+    <div id="listeModal" class="modal-overlay hidden">
+      <div class="modal-bottom-sheet">
+        <h2 class="sheet-title">Liste de Courses</h2>
+        <div class="sheet-body">
+          <textarea class="sheet-textarea" placeholder="Ajoutez les articles à acheter..."></textarea>
+        </div>
+        <button id="closeListeBtn" class="btn-submit" style="margin-top: 10px;" type="button">Fermer</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
