@@ -4,24 +4,6 @@
 
 const SPOONACULAR_API_KEY = "52cccdb1ed664d629040a66d50b5a520";
 
-fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${SPOONACULAR_API_KEY}&ingredients=chicken&number=1`)
-  .then(async response => {
-    const text = await response.text();
-
-    alert(
-      "Spoonacular\n\n" +
-      "Code : " + response.status +
-      "\n\n" +
-      text.substring(0, 500)
-    );
-  })
-  .catch(error => {
-    alert(
-      "Erreur connexion :\n\n" +
-      error.message
-    );
-  });
-
 let userIngredients = [];
 let selectedMode = "simple";
 let generatedRecipes = [];
