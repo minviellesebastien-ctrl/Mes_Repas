@@ -1,4 +1,4 @@
-let userIngredients = ["poulet", "riz"];
+let userIngredients = [];
 let selectedMode = "cookeo";
 let generatedRecipes = [];
 
