@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Mes Repas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- ÉCRAN PRINCIPAL -->
+    <div id="mainScreen" class="screen active-screen">
+      <header class="app-header">
+        <h1 class="app-title">
+          <svg class="chef-hat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 10.58 0A4 4 0 0 1 18 13.87V21H6z"/>
+            <line x1="6" y1="17" x2="18" y2="17"/>
+          </svg>
+          Mes Repas
+        </h1>
+      </header>
+
+      <!-- Zone centrale ajustée vers le bas -->
+      <div class="main-content">
+        <!-- Mes Ingrédients (Hauteur Fixe) -->
+        <section class="input-card">
+          <h2 class="section-title ingredients-title">Mes ingrédients</h2>
+          <div class="input-group">
+            <input type="text" id="ingredientInput" placeholder="Ex: poulet, riz, tomate..." class="ingredient-input" />
+            <button type="button" id="addBtn" class="btn-add">Ajouter</button>
+          </div>
+          <div id="tagsContainer" class="tags-container"></div>
+        </section>
+
+        <!-- Mode de cuisson -->
+        <section class="cooking-section">
+          <h2 class="section-title">Mode de cuisson</h2>
+          <div class="cooking-grid">
+            <button type="button" class="cooking-btn" data-mode="simple">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 14a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/>
+                <path d="M16 11l6 6"/>
+              </svg>
+              <span class="cooking-label">Cuisson simple</span>
+            </button>
+
+            <button type="button" class="cooking-btn active" data-mode="cookeo">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 10h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z"/>
+                <path d="M2 10h20"/>
+                <path d="M12 4v3"/>
+                <path d="M9 4h6"/>
+              </svg>
+              <span class="cooking-label">Cookeo</span>
+            </button>
+
+            <button type="button" class="cooking-btn" data-mode="airfryer">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="3" width="14" height="18" rx="3"/>
+                <circle cx="12" cy="8" r="2.5"/>
+                <path d="M8 15h8"/>
+                <path d="M8 18h8"/>
+              </svg>
+              <span class="cooking-label">Air Fryer</span>
+            </button>
+
+            <button type="button" class="cooking-btn" data-mode="raw">
+              <svg class="cooking-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21a9 9 0 0 0 9-9c0-4.97-4.03-9-9-9s-9 4.03-9 9a9 9 0 0 0 9 9z"/>
+                <path d="M12 7v10"/>
+                <path d="M8 11c2 0 4-1.5 4-4"/>
+                <path d="M16 11c-2 0-4-1.5-4-4"/>
+              </svg>
+              <span class="cooking-label">Sans</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Bouton Central -->
+        <div class="action-container">
+          <button type="button" id="searchBtn" class="btn-submit">C'est Parti !</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉCRAN DES RÉSULTATS -->
+    <div id="resultsScreen" class="screen">
+      <header class="results-header">
+        <button type="button" id="backBtn" class="btn-back">← Retour</button>
+        <h2 id="recipesTitle" class="section-title">Recettes disponibles</h2>
+      </header>
+      <div id="recipesList" class="recipes-list"></div>
+    </div>
+
+    <!-- Navigation du bas -->
+    <nav class="bottom-nav">
+      <button type="button" class="nav-btn nav-btn-secondary" id="openSemaineBtn">MA SEMAINE</button>
+      <button type="button" class="nav-btn" id="openListeBtn">MA LISTE</button>
+    </nav>
+  </div>
+
+  <!-- Modale Détail Recette -->
+  <div id="recipeModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button type="button" id="closeModalBtn" class="close-btn">×</button>
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title"></h2>
+        <div id="modalMeta" class="recipe-meta"></div>
+      </div>
+      <div class="modal-section">
+        <h3 class="modal-section-title">Ingrédients</h3>
+        <ul id="modalIngredients" class="ingredient-list"></ul>
+      </div>
+      <div class="modal-section">
+        <h3 class="modal-section-title">Étapes de préparation</h3>
+        <ol id="modalSteps" class="step-list"></ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Ma Semaine -->
+  <div id="semaineModal" class="modal-overlay hidden">
+    <div class="modal-bottom-sheet">
+      <button type="button" class="close-btn" id="closeSemaineBtn">×</button>
+      <h2 class="sheet-title">Ma Semaine</h2>
+      <div class="sheet-body">
+        <textarea placeholder="Planifiez vos repas de la semaine ici..." class="sheet-textarea"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Ma Liste -->
+  <div id="listeModal" class="modal-overlay hidden">
+    <div class="modal-bottom-sheet">
+      <button type="button" class="close-btn" id="closeListeBtn">×</button>
+      <h2 class="sheet-title">Ma Liste</h2>
+      <div class="sheet-body">
+        <textarea placeholder="Ajoutez vos articles pour la liste de courses..." class="sheet-textarea"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
