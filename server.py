@@ -25,58 +25,47 @@ PORT = int(os.environ.get("PORT", 5000))
 
 def clean_json_text(text):
     """
-    Nettoie la réponse de l'IA pour récupérer uniquement
-    le tableau JSON.
+    Nettoie la réponse de l'IA et récupère uniquement
+    le premier tableau JSON valide.
     """
 
     text = text.strip()
 
-    # Supprime les éventuelles balises Markdown
-    text = re.sub(
-        r"^```json\s*",
-        "",
-        text,
-        flags=re.IGNORECASE
-    )
-
-    text = re.sub(
-        r"^```\s*",
-        "",
-        text
-    )
-
-    text = re.sub(
-        r"\s*```$",
-        "",
-        text
-    )
+    # Supprime les balises Markdown éventuelles
+    text = re.sub(r"```json\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"```\s*", "", text)
 
     text = text.strip()
 
-    # Cherche le premier [ et le dernier ]
+    # Cherche le début du tableau JSON
     first = text.find("[")
-    last = text.rfind("]")
 
-    if first == -1 or last == -1 or last <= first:
+    if first == -1:
         raise ValueError(
-            "La réponse de l'IA ne contient pas de JSON valide."
+            "La réponse de l'IA ne contient pas de tableau JSON."
         )
 
-    return text[first:last + 1]
+    # Essaie de trouver progressivement la fin du JSON
+    # plutôt que de prendre forcément le dernier "]".
+    decoder = json.JSONDecoder()
 
+    try:
+        recipes, end = decoder.raw_decode(
+            text[first:]
+        )
+    except json.JSONDecodeError as error:
+        raise ValueError(
+            f"JSON généré par l'IA invalide : {error}"
+        )
 
-def get_mode_label(mode):
+    if not isinstance(recipes, list):
+        raise ValueError(
+            "Le résultat de l'IA n'est pas un tableau de recettes."
+        )
 
-    modes = {
-        "simple": "Poêle / Four",
-        "cookeo": "Cookeo",
-        "airfryer": "Air Fryer",
-        "sans-cuisson": "Sans cuisson"
-    }
-
-    return modes.get(
-        mode,
-        "Poêle / Four"
+    return json.dumps(
+        recipes,
+        ensure_ascii=False
     )
 
 
