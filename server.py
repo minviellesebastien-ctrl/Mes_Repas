@@ -4,14 +4,14 @@ import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-app = Flask(name)
+app = Flask(__name__)
 CORS(app)
 
 PORT = int(os.environ.get("PORT", 5000))
 
 @app.route("/", methods=["GET"])
 def home():
-return jsonify({"status": "ok", "service": "Mes Repas"})
+    return jsonify({"status": "ok", "service": "Mes Repas"})
 
 @app.route("/api/recipes", methods=["POST"])
 def recipes():
