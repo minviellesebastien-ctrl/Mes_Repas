@@ -12,7 +12,7 @@ URL = "https://text.pollinations.ai/"
 
 @app.route("/")
 def home():
-return jsonify({"status": "ok"})
+    return jsonify({"status": "ok"})
 
 @app.route("/api/recipes", methods=["POST"])
 def recipes():
