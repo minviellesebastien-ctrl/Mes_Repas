@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const promptText = `Génère 2 ou 3 idées de recettes de cuisine basées sur ces ingrédients : ${ingredients.join(", ")}. Le mode de cuisson principal doit être : ${selectedMode}. Réponds de manière claire et structurée.`;
 
     // Remplace par ta vraie clé API entre les guillemets
-    const apiKey = "mets_ta_clé_ici";
+    const apiKey = "AQ.Ab8RN6L0_b6JbCI08ir4bObbuL5yVbwCUz6FrXGjAZN0yeuuSw";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
