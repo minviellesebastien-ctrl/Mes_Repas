@@ -15,7 +15,7 @@ def home():
 
 @app.route("/api/recipes", methods=["POST"])
 def recipes():
-data = request.get_json(silent=True) or {}
+    data = request.get_json(silent=True) or {}
 
 ingredients = data.get("ingredients", [])
 mode = data.get("mode", "simple")
