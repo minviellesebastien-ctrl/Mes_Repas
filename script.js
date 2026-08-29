@@ -137,7 +137,7 @@ async function generateRecipesWithGemini() {
   if (recipesList) recipesList.innerHTML = "<p style='font-size: 0.85rem; color: #62826c;'>Génération des recettes...</p>";
 
   // Remplace l'URL ci-dessous par l'adresse de ton serveur Render
-  const backendUrl = "https://mes-repas.onrender.com";
+  const backendUrl = "https://mes-repas.onrender.com/api/recipes";
 
   try {
     const response = await fetch(backendUrl, {
