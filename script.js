@@ -110,7 +110,7 @@ function renderTags() {
 // Demande la clé si elle n'est pas enregistrée
 function getApiKey() {
   if (!GEMINI_API_KEY) {
-    const inputKey = prompt("Veuillez saisir votre clé API Gemini (commençant par AIzaSy) :");
+    const inputKey = prompt("Veuillez saisir votre clé API Gemini :");
     if (inputKey && inputKey.trim() !== "") {
       GEMINI_API_KEY = inputKey.trim();
       localStorage.setItem("GEMINI_API_KEY", GEMINI_API_KEY);
@@ -143,7 +143,7 @@ async function generateRecipesWithGemini() {
 Adapte précisément les explications et étapes au mode "${selectedMode}".`;
 
   // Utilisation de l'alias d'API recommandé 'gemini-flash'
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash:generateContent?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   const payload = {
     contents: [
