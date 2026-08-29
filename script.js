@@ -101,41 +101,33 @@ document.addEventListener("DOMContentLoaded", () => {
         ingredients[0].toLowerCase();
 
       const url =
-        "https://datasets-server.huggingface.co/filter" +
-        "?dataset=Karo8870%2Ffood.com-parsed-dataset" +
-        "&config=default" +
-        "&split=train" +
-        "&where=" +
-        encodeURIComponent(
-          "ingredients LIKE '%" + ingredient + "%'"
-        ) +
-        "&offset=0" +
-        "&length=10";
+  "https://datasets-server.huggingface.co/search" +
+  "?dataset=" + encodeURIComponent("Karo8870/food.com-parsed-dataset") +
+  "&config=default" +
+  "&split=train" +
+  "&query=" + encodeURIComponent(ingredient) +
+  "&offset=0" +
+  "&length=10";
 
-      const response = await fetch(url);
+const response = await fetch(url);
 
-      if (!response.ok) {
+if (!response.ok) {
+  throw new Error("Erreur API : " + response.status);
+}
 
-        throw new Error(
-          "Erreur API : " + response.status
-        );
-      }
+const data = await response.json();
 
-      const data = await response.json();
+console.log("Réponse dataset :", data);
 
-      console.log("Réponse dataset :", data);
+recipesList.innerHTML = "";
 
-      recipesList.innerHTML = "";
+if (!data.rows || data.rows.length === 0) {
+  recipesList.innerHTML =
+    "<p style='padding:20px;text-align:center;'>Aucune recette trouvée.</p>";
+  return;
+}
 
-      if (!data.rows || data.rows.length === 0) {
-
-        recipesList.innerHTML =
-          "<p style='padding:20px;text-align:center;'>Aucune recette trouvée.</p>";
-
-        return;
-      }
-
-      data.rows.forEach(item => {
+data.rows.forEach(item => {
 
         const recipe = item.row;
 
