@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Initialisation avec ta clé en 
-const ai = new GoogleGenAI({ apiKey: "AQ.Ab8RN6IVXYz0pp3zGSmBPweKtCthazPKr2ccqf_XBVInDu9MRA" });
+const ai = new GoogleGenAI({ apiKey: "" });
 
 document.addEventListener("DOMContentLoaded", () => {
   const ingredientInput = document.getElementById("ingredientInput");
