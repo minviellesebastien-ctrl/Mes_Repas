@@ -81,6 +81,19 @@ def clean_json_text(text):
         ensure_ascii=False
     )
 
+def get_mode_label(mode):
+
+    modes = {
+        "simple": "Poêle / Four",
+        "cookeo": "Cookeo",
+        "airfryer": "Air Fryer",
+        "sans-cuisson": "Sans cuisson"
+    }
+
+    return modes.get(
+        mode,
+        "Poêle / Four"
+    )
 
 # ============================================================
 # ROUTE PRINCIPALE
