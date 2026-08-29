@@ -11,11 +11,11 @@ PORT = int(os.environ.get("PORT", 5000))
 URL = "https://text.pollinations.ai/"
 
 @app.route("/")
-def home():
+    def home():
 return jsonify({"status": "ok"})
 
 @app.route("/api/recipes", methods=["POST"])
-def recipes():
+    def recipes():
 data = request.get_json(silent=True) or {}
 ingredients = data.get("ingredients", [])
 mode = data.get("mode", "simple")
