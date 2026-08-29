@@ -427,6 +427,9 @@ Le tableau doit contenir exactement 6 recettes.
 
         raw_text = response.text.strip()
 
+print("========== REPONSE IA ==========")
+print(raw_text)
+print("========== FIN REPONSE IA ==========")
 
         if not raw_text:
 
