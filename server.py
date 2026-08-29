@@ -77,17 +77,23 @@ Réponds uniquement avec un tableau JSON valide.
                 "error": "Erreur IA HTTP " + str(response.status_code)
             }), 502
 
-        text = response.text.strip()
+    text = response.text.strip()
 
-        start = text.find("[")
-        end = text.rfind("]")
+    start = text.find("[")
 
-        if start == -1 or end == -1:
-            return jsonify({
-                "error": "L'IA n'a pas renvoyé de JSON."
-            }), 500
+    if start == -1:
+        return jsonify({
+            "error": "L'IA n'a pas renvoyé de JSON."
+        }), 500
 
-        result = json.loads(text[start:end + 1])
+    try:
+        decoder = json.JSONDecoder()
+        result, end = decoder.raw_decode(text[start:])
+    except json.JSONDecodeError as error:
+        print("ERREUR JSON :", repr(error))
+        return jsonify({
+            "error": "Réponse JSON invalide."
+        }), 500
 
         if not isinstance(result, list):
             return jsonify({
