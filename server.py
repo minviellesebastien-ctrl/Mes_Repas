@@ -32,8 +32,18 @@ def clean_json_text(text):
     text = text.strip()
 
     # Supprime les balises Markdown éventuelles
-    text = re.sub(r"```json\s*", "", text, flags=re.IGNORECASE)
-    text = re.sub(r"```\s*", "", text)
+    text = re.sub(
+        r"```json\s*",
+        "",
+        text,
+        flags=re.IGNORECASE
+    )
+
+    text = re.sub(
+        r"```\s*",
+        "",
+        text
+    )
 
     text = text.strip()
 
@@ -45,20 +55,23 @@ def clean_json_text(text):
             "La réponse de l'IA ne contient pas de tableau JSON."
         )
 
-    # Essaie de trouver progressivement la fin du JSON
-    # plutôt que de prendre forcément le dernier "]".
+    # Lit directement le premier tableau JSON complet
     decoder = json.JSONDecoder()
 
     try:
         recipes, end = decoder.raw_decode(
             text[first:]
         )
+
     except json.JSONDecodeError as error:
         raise ValueError(
             f"JSON généré par l'IA invalide : {error}"
         )
 
-    if not isinstance(recipes, list):
+    if not isinstance(
+        recipes,
+        list
+    ):
         raise ValueError(
             "Le résultat de l'IA n'est pas un tableau de recettes."
         )
