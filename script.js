@@ -462,235 +462,149 @@ function renderTags() {
 
 async function generateRecipes() {
 
-    const recipesTitle =
-        document.getElementById(
-            "recipesTitle"
-        );
+  const recipesTitle =
+    document.getElementById("recipesTitle");
 
-    const recipesList =
-        document.getElementById(
-            "recipesList"
-        );
+  const recipesList =
+    document.getElementById("recipesList");
 
+  console.log("=== GENERATION RECETTES ===");
 
-    if (
-        userIngredients.length === 0
-    ) {
+  try {
 
-        recipesTitle.textContent =
-            "Recettes (0)";
+    const response = await fetch(
+      API_URL,
+      {
+        method: "POST",
 
+        headers: {
+          "Content-Type": "application/json"
+        },
 
-        recipesList.innerHTML =
-            "<p style='font-size:0.85rem;color:#62826c;'>Veuillez ajouter au moins un ingrédient.</p>";
-
-
-        return false;
-
-    }
-
-
-    recipesList.innerHTML = `
-        <p style="
-            font-size:0.85rem;
-            color:#62826c;
-            text-align:center;
-            padding:20px;
-        ">
-            L'IA prépare vos recettes...
-        </p>
-    `;
-
-
-    console.log(
-        "=== ENVOI VERS RENDER ==="
+        body: JSON.stringify({
+          ingredients: userIngredients,
+          mode: selectedMode
+        })
+      }
     );
 
-
     console.log(
-        "Ingrédients :",
-        userIngredients
+      "HTTP :",
+      response.status
     );
 
+    const text =
+      await response.text();
 
     console.log(
-        "Mode :",
-        selectedMode
+      "REPONSE SERVEUR :",
+      text
     );
 
+    let data;
 
     try {
 
-        const response =
-            await fetch(
-                API_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        ingredients:
-                            userIngredients,
-
-                        mode:
-                            selectedMode
-
-                    })
-
-                }
-            );
-
-
-        console.log(
-            "STATUT RENDER :",
-            response.status
-        );
-
-
-        const text =
-            await response.text();
-
-
-        console.log(
-            "REPONSE RENDER :",
-            text
-        );
-
-
-        let data;
-
-
-        try {
-
-            data =
-                JSON.parse(text);
-
-        } catch {
-
-            throw new Error(
-                "Réponse du serveur invalide."
-            );
-
-        }
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.error ||
-                `Erreur serveur ${response.status}`
-            );
-
-        }
-
-
-        if (
-            !Array.isArray(data)
-        ) {
-
-            throw new Error(
-                "Le serveur n'a pas retourné une liste de recettes."
-            );
-
-        }
-
-
-        const validRecipes =
-            data.filter(
-                (recipe) => {
-
-                    return (
-                        recipe &&
-                        recipe.title &&
-                        Array.isArray(
-                            recipe.ingredients
-                        ) &&
-                        recipe.ingredients.length > 0 &&
-                        Array.isArray(
-                            recipe.steps
-                        ) &&
-                        recipe.steps.length > 0
-                    );
-
-                }
-            );
-
-
-        console.log(
-            "RECETTES VALIDES :",
-            validRecipes.length
-        );
-
-
-        if (
-            validRecipes.length === 0
-        ) {
-
-            throw new Error(
-                "Aucune recette exploitable n'a été générée."
-            );
-
-        }
-
-
-        generatedRecipes =
-            validRecipes;
-
-
-        renderRecipes(
-            generatedRecipes
-        );
-
-
-        return true;
-
+      data =
+        JSON.parse(text);
 
     } catch (error) {
 
-        console.error(
-            "ERREUR GENERATION :",
-            error
-        );
-
-
-        recipesTitle.textContent =
-            "Recettes";
-
-
-        recipesList.innerHTML = `
-
-            <div style="
-                padding:20px;
-                text-align:center;
-                font-size:0.85rem;
-                color:#62826c;
-                line-height:1.5;
-            ">
-
-                <strong>
-                    Impossible de générer les recettes.
-                </strong>
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message
-                )}
-
-            </div>
-
-        `;
-
-
-        return false;
+      throw new Error(
+        "Réponse du serveur invalide."
+      );
 
     }
 
+    if (!response.ok) {
+
+      throw new Error(
+        data.error ||
+        `Erreur serveur ${response.status}`
+      );
+
+    }
+
+    if (!Array.isArray(data)) {
+
+      throw new Error(
+        "Le serveur n'a pas retourné une liste."
+      );
+
+    }
+
+    console.log(
+      "RECETTES RECUES :",
+      data.length
+    );
+
+    // On accepte les recettes retournées
+    // sans refaire une validation trop stricte.
+
+    const validRecipes =
+      data.filter(recipe =>
+        recipe &&
+        recipe.title
+      );
+
+    console.log(
+      "RECETTES EXPLOITABLES :",
+      validRecipes.length
+    );
+
+    if (validRecipes.length === 0) {
+
+      throw new Error(
+        "L'IA a répondu mais aucune recette exploitable n'a été trouvée."
+      );
+
+    }
+
+    generatedRecipes =
+      validRecipes.slice(0, 6);
+
+    renderRecipes(
+      generatedRecipes
+    );
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "ERREUR GENERATION :",
+      error
+    );
+
+    recipesTitle.textContent =
+      "Recettes";
+
+    recipesList.innerHTML = `
+
+      <div style="
+        padding:20px;
+        text-align:center;
+        font-size:0.85rem;
+        color:#62826c;
+        line-height:1.5;
+      ">
+
+        <strong>
+          Impossible de générer les recettes.
+        </strong>
+
+        <br><br>
+
+        ${escapeHTML(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+    return false;
+  }
 }
 
 
