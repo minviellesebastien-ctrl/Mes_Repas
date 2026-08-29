@@ -464,72 +464,58 @@ function renderTags() {
 
 async function generateRecipes() {
 
-  const recipesTitle =
-    document.getElementById(
-      "recipesTitle"
-    );
+    console.log("=== GENERATION RECETTES ===");
 
-  const recipesList =
-    document.getElementById(
-      "recipesList"
-    );
+    try {
 
+        const response = await fetch(
+            API_URL,
+            {
+                method: "POST",
 
-  if (
-    userIngredients.length === 0
-  ) {
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-    recipesTitle.textContent =
-      "Recettes (0)";
+                body: JSON.stringify({
+                    ingredients: ["poulet"],
+                    mode: "simple"
+                })
+            }
+        );
 
+        console.log(
+            "STATUT SERVEUR :",
+            response.status
+        );
 
-    recipesList.innerHTML =
-      "<p style='font-size:0.85rem;color:#62826c;'>Veuillez ajouter au moins un ingrédient.</p>";
+        const text = await response.text();
 
+        console.log(
+            "REPONSE SERVEUR :",
+            text
+        );
 
-    return false;
+        alert(
+            "Serveur : " +
+            response.status +
+            "\n\n" +
+            text.substring(0, 500)
+        );
 
-  }
+    } catch (error) {
 
+        console.error(
+            "ERREUR FETCH :",
+            error
+        );
 
-  recipesList.innerHTML = `
-    <p style="
-      font-size:0.85rem;
-      color:#62826c;
-      text-align:center;
-      padding:20px;
-    ">
-      L'IA prépare vos recettes...
-    </p>
-  `;
-
-
-  try {
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-
-            ingredients:
-              userIngredients,
-
-            mode:
-              selectedMode
-
-          })
-
-        }
-      );
-
+        alert(
+            "ERREUR : " +
+            error.message
+        );
+    }
+}
 
     // --------------------------------------------------------
     // LECTURE REPONSE
